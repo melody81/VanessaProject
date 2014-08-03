@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset = 'utf-8'>
+</head>
+<body>
+
+
+
+<script src = "http://code.jquery.com/jquery-2.1.0.min.js"></script> 
+<!--上面引用jquery库，下面是脚本部分，用于操纵网页部分 -->
+<script>
+<!--js脚本放这里-->
+function update(){
+$.ajax({
+		url: "http://127.0.0.1:8000/dt",
+        type: "GET",
+        dataType: "json",
+        //ajax是http的client，嵌在一个网页里，又去请求一个网址。请求网址返回字典
+        success: function(data) {
+			//$('#time').html(data.Mydata)
+			//$('#time').html(data['Mydata'])
+			$('#time').html('<h1>'+data['Mydata']+'</h1>');
+        }
+    })
+}
+//setInterval(update,1000);
+</script>
+
+<!--下面是网页部分-->
+<div id = 'time'>abc</div>
+
+{%for blog in blogs%}
+{{blog.title}}<a href = "/delete/{{blog.id}}">删除</a>
+<a href = "/edit/{{blog.id}}">编辑</a></p>
+<!--打印显示到浏览器-->
+{%endfor%}
+
+
+
+my name is {{name}}, 
+age is <font color = '{{color}}'>{{age}}</font>
+
+<!--两个花括号不被转义替换，输出{{abcdef}}-->
+{%verbatim%}  
+{{abcdef}}
+{%endverbatim%}
+
+
+<!--setting.py 里面要把jeapblog app加在installed app里面-->
+
+<!--表单，action没指定表示发送到当前test上，-->
+<form action="" method="post">
+	<!--若不加上行会返回Forbidden (403) CSRF verification failed. Request aborted.-->
+	<!--python语句必须用\{%%\}格式引用-->
+	<input name = "a" Value = ""/>
+	<input name ="b" type="submit" value="发送">
+	{% csrf_token %}	
+</form>
+</body>
+</html>

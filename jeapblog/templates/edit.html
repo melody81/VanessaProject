@@ -1,0 +1,14 @@
+<meta charset = 'utf-8'>
+<script src = "http://code.jquery.com/jquery-2.1.0.min.js"></script> 
+<!--上面引用jquery库，下面是脚本部分，用于操纵网页部分 -->
+<script>
+
+</script>
+
+<form action="" method="POST">
+	<!--若不加上行会返回Forbidden (403) CSRF verification failed. Request aborted.-->
+	<!--python语句必须用\{%%\}格式引用-->
+	<input name = "a" Value = '{{bbbbb.title}}'/>
+	<input name ="b" type="submit" value="发送">
+	{% csrf_token %}	
+</form>
